@@ -1,6 +1,1 @@
-/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
-/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
-/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
-/target/classes/raf/hoteluseraplication/Main.class
-/target/maven-archiver/pom.properties
-/target/proj_user_app-1.0-SNAPSHOT.jar
+/target/**
