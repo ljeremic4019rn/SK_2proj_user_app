@@ -10,6 +10,7 @@ import java.awt.*;
  */
 public class HotelUserApplication extends JFrame {
 
+    private String token;
     private static HotelUserApplication instance = new HotelUserApplication();
 
     private HotelUserApplication() {
@@ -28,5 +29,13 @@ public class HotelUserApplication extends JFrame {
 
     public static HotelUserApplication getInstance() {
         return instance;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

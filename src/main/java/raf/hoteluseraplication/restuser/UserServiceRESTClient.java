@@ -2,6 +2,7 @@ package raf.hoteluseraplication.restuser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import raf.hoteluseraplication.HotelUserApplication;
 import raf.hoteluseraplication.restuser.dto.*;
 
 import java.io.IOException;
@@ -85,8 +86,27 @@ public class UserServiceRESTClient {
             String json = response.body().string();
             ClientDto dto = objectMapper.readValue(json, ClientDto.class);
         }
+    }
 
+    public void banClient(Long id) throws IOException {
+        String token = HotelUserApplication.getInstance().getToken();
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(id));
 
+        //@PutMapping("/{id}/ban")
+        Request request = new Request.Builder()
+                .url(URL + String.format("/user/%d/ban_unban", id)) // URL koji gadjamo
+                .put(body)
+                .header("Authorization", "Bearer " + token)
+                .build();
+        Call call = client.newCall(request);
+
+        Response response = call.execute();
+
+        if (response.code() == 200) {
+            String json = response.body().string();
+        } else {
+            throw new RuntimeException();
+        }
     }
 
 }
