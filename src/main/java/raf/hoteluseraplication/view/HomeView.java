@@ -91,6 +91,7 @@ public class HomeView extends JPanel {
                 String []id = payloadSplit[0].split(":");
                 HotelUserApplication.getInstance().setCurrentUserId(Long.parseLong(id[1]));
                 HotelUserApplication.getInstance().setCurrentUserEmaiil(emailInput.getText());
+                HotelUserApplication.getInstance().setToken(token);
 
                 if(payload.contains("ROLE_ADMIN")){
                     new AdminView();

@@ -60,11 +60,11 @@ public class ClientView  extends JDialog {
             userPasswordDto.setPassword(password);
             userPasswordDto.setName("tmp name");
             userPasswordDto.setLastname("tmp lastname");
-//            try {
-//                userServiceRestClient.updateClientPassword(id, clientPasswordDto);
-//            } catch (IOException ioException) {
-//                ioException.printStackTrace();
-//            }
+            try {
+                userServiceRESTClient.updateUserPassword(userPasswordDto.getId(), userPasswordDto);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
 
 
