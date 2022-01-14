@@ -1,7 +1,7 @@
 package raf.hoteluseraplication.restuser.dto;
 
 /**
- * Created on 12.01.2022. by Andrija inside package app.dto.
+ * Created on 14.01.2022. by Andrija inside package raf.hoteluseraplication.restuser.dto.
  */
 public class NotificationTypeDto {
     private Long id;
