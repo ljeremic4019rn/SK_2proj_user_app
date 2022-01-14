@@ -97,7 +97,6 @@ public class RegisterClientView extends JDialog {
 
         registerButton.addActionListener(e -> {
             ClientCreateDto clientCreateDto = new ClientCreateDto();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
             clientCreateDto.setEmail(emailField.getText());
             clientCreateDto.setFirstName(firstNameField.getText());
@@ -107,9 +106,7 @@ public class RegisterClientView extends JDialog {
             clientCreateDto.setUsername(usernameField.getText());
             clientCreateDto.setPassword(String.valueOf(passwordField.getPassword()));
             clientCreateDto.setReservationNo(Long.parseLong(reservationNumField.getText()));
-            LocalDate birthDateFormated = LocalDate.parse(birthDateField.getText(), dateTimeFormatter);
-            clientCreateDto.setBirthDate(birthDateFormated);
-
+            clientCreateDto.setBirthDate(birthDateField.getText());
 
             try {
                 userServiceRESTClient.registerClient(clientCreateDto);

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import raf.hoteluseraplication.restuser.dto.*;
 
+
 import java.io.IOException;
 
 /**
@@ -62,14 +63,15 @@ public class UserServiceRESTClient {
         // ako je login vratio 200, deserijalizujemo i dobijamo TokenResponseDto koji sadrzi token, koji vracamo u View da ga setuje globalno
         if (response.code() == 201) {
             String json = response.body().string();
-            TokenResponseDto dto = objectMapper.readValue(json, TokenResponseDto.class);
+//            TokenResponseDto dto = objectMapper.readValue(json, TokenResponseDto.class);
         }
     }
 
     public void registerClient(ClientCreateDto clientCreateDto) throws IOException {
         System.out.println(clientCreateDto.getUsername());
-
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientCreateDto));
+
+        System.out.println(body);
 
         Request request = new Request.Builder()
                 .url(URL + "/client/register") // URL koji gadjamo
@@ -82,11 +84,11 @@ public class UserServiceRESTClient {
 
         // ako je login vratio 200, deserijalizujemo i dobijamo TokenResponseDto koji sadrzi token, koji vracamo u View da ga pamtimo
         if (response.code() == 201) {
-            String json = response.body().string();
-            ClientDto dto = objectMapper.readValue(json, ClientDto.class);
+            String json = response.body().toString();
+//            ClientDto dto = objectMapper.readValue(json, ClientDto.class);
+            System.out.println(json);
         }
 
 
     }
-
 }
