@@ -106,27 +106,27 @@ public class UserServiceRESTClient {
         }
     }
 
-//    public List<RankDto> getRanks() throws IOException {
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//
-//        Request request = new Request.Builder()
-//                .url(URL + "/user/rank")
-//                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
-//                .get()
-//                .build();
-//
-//        Call call = user.newCall(request);
-//
-//        Response response = call.execute();
-//        System.out.println(response.code());
-//        if (response.code() == 200) {
-//            String json = response.body().string();
-//
-//            return objectMapper.readValue(json, P.class);
-//        }
-//
-//        throw new RuntimeException();
-//    }
+    public RankListDto getRanks() throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Request request = new Request.Builder()
+                .url(URL + "/user/rank")
+                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+                .get()
+                .build();
+
+        Call call = user.newCall(request);
+
+        Response response = call.execute();
+        System.out.println(response.code());
+        if (response.code() == 200) {
+            String json = response.body().string();
+
+            return objectMapper.readValue(json, RankListDto.class);
+        }
+
+        throw new RuntimeException();
+    }
 
 //    public void changePassword(Long id,) throws IOException {
 
