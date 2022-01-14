@@ -4,6 +4,7 @@ import raf.hoteluseraplication.restuser.UserServiceRESTClient;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.Base64;
 
 /**
  * Created on 14.01.2022. by Andrija inside package raf.hoteluseraplication.view.
@@ -73,6 +74,7 @@ public class HomeView extends JPanel {
 //                System.out.println(email+" " + password);
                 String token = userservice.login(email,password);
                 System.out.println(token);
+
             } catch (RuntimeException ex) {
                 System.out.println("Netacan email i sifra");
                 //todo moglo bi izadje obavestenje da nije tacna sifra i mail

@@ -1,5 +1,6 @@
 package raf.hoteluseraplication.restuser;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import raf.hoteluseraplication.HotelUserApplication;
@@ -7,6 +8,7 @@ import raf.hoteluseraplication.restuser.dto.*;
 
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created on 14.01.2022. by Andrija inside package raf.hoteluseraplication.restuser.
@@ -17,10 +19,8 @@ public class UserServiceRESTClient {
 
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-    OkHttpClient user = new OkHttpClient();
-    OkHttpClient manager = new OkHttpClient();
-    OkHttpClient client = new OkHttpClient();
-    ObjectMapper objectMapper = new ObjectMapper();
+    private OkHttpClient user = new OkHttpClient();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     public String login(String email, String password) throws IOException {
 
@@ -57,7 +57,7 @@ public class UserServiceRESTClient {
                 .post(body) // saljemo JSON kao body (username, password)
                 .build();
 
-        Call call = manager.newCall(request);
+        Call call = user.newCall(request);
 
         Response response = call.execute();
 
@@ -79,7 +79,7 @@ public class UserServiceRESTClient {
                 .post(body) // saljemo JSON kao body (username, password)
                 .build();
 
-        Call call = client.newCall(request);
+        Call call = user.newCall(request);
 
         Response response = call.execute();
 
@@ -91,17 +91,16 @@ public class UserServiceRESTClient {
         }
     }
 
-    public void banClient(Long id) throws IOException {
+    public void banUser(Long id) throws IOException {
         String token = HotelUserApplication.getInstance().getToken();
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(id));
 
-        //@PutMapping("/{id}/ban")
         Request request = new Request.Builder()
                 .url(URL + String.format("/user/%d/ban_unban", id)) // URL koji gadjamo
                 .put(body)
                 .header("Authorization", "Bearer " + token)
                 .build();
-        Call call = client.newCall(request);
+        Call call = user.newCall(request);
 
         Response response = call.execute();
 
@@ -111,4 +110,48 @@ public class UserServiceRESTClient {
             throw new RuntimeException();
         }
     }
+
+//    public List<RankDto> getRanks() throws IOException {
+//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//        Request request = new Request.Builder()
+//                .url(URL + "/user/rank")
+//                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+//                .get()
+//                .build();
+//
+//        Call call = user.newCall(request);
+//
+//        Response response = call.execute();
+//        System.out.println(response.code());
+//        if (response.code() == 200) {
+//            String json = response.body().string();
+//
+//            return objectMapper.readValue(json, P.class);
+//        }
+//
+//        throw new RuntimeException();
+//    }
+
+//    public void changePassword(Long id,) throws IOException {
+
+//        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientPasswordDto));
+//
+//        Request request = new Request.Builder()
+//                .url(URL + String.format("/client/%d/update-password", id))
+//                .header("Authorization", "Bearer " + HotelClientApplication.getInstance().getToken())
+//                .put(body)
+//                .build();
+//
+//        Call call = client.newCall(request);
+//
+//        Response response = call.execute();
+//
+//        if (response.code() == 200) {
+//            String json = response.body().string();
+//        }
+//        else
+//            throw new RuntimeException();
+//    }
+
 }
