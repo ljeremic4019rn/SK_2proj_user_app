@@ -21,16 +21,15 @@ public class UserServiceRESTClient {
     OkHttpClient client = new OkHttpClient();
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public String login(String email, String password, String role) throws IOException {
+    public String login(String email, String password) throws IOException {
 
         // ruta login prihvata samo TokenRequestDto, zato treba da se napravi
         TokenRequestDto tokenRequestDto = new TokenRequestDto(email, password);
-
         // pretvaramo TokenRequestDto u formatu JSON
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(tokenRequestDto));
 
         Request request = new Request.Builder()
-                .url(URL + "user/login") // URL koji gadjamo
+                .url(URL + "/user/login") // URL koji gadjamo
                 .post(body) // saljemo JSON kao body (username, password)
                 .build();
 

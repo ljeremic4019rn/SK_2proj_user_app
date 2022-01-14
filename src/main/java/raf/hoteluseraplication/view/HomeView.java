@@ -1,7 +1,9 @@
 package raf.hoteluseraplication.view;
 
+import raf.hoteluseraplication.restuser.UserServiceRESTClient;
+
 import javax.swing.*;
-import java.awt.*;
+import java.io.IOException;
 
 /**
  * Created on 14.01.2022. by Andrija inside package raf.hoteluseraplication.view.
@@ -13,7 +15,7 @@ public class HomeView extends JPanel {
     //todo JPanel register manager
 
     //loging fields
-    private JTextField usernameInput;
+    private JTextField emailInput;
     private JPasswordField passwordInput;
     private JButton loginButton;
     private JLabel emailLabel;
@@ -22,14 +24,13 @@ public class HomeView extends JPanel {
     private JButton clientRegister;
     private JButton managerRegister;
     //client, manager, admin for login
-    private JComboBox<String> userTypeCb;
 
     //panels
     private JPanel registerPanel;
     private JPanel intputFieldsPanel;
     private JPanel loginButtonPanel;
 
-
+    UserServiceRESTClient userservice = new UserServiceRESTClient();
 
     public HomeView() {
         super();
@@ -40,7 +41,7 @@ public class HomeView extends JPanel {
         //login
         emailLabel = new JLabel("Email: ");
         passwordLabel = new JLabel("Password: ");
-        usernameInput = new JTextField(20);
+        emailInput = new JTextField(20);
         passwordInput = new JPasswordField(20);
         loginButton = new JButton("Login");
 
@@ -48,9 +49,6 @@ public class HomeView extends JPanel {
         clientRegister = new JButton("Register client");
         managerRegister = new JButton("Register manager");
 
-        String []types = {"Client", "Manager", "Admin"};
-        userTypeCb = new JComboBox<>(types);
-        userTypeCb.setSelectedIndex(0);
 
         //samo za login dugme, da bi bilo odvojeno malo
         this.loginButtonPanel = new JPanel();
@@ -61,15 +59,27 @@ public class HomeView extends JPanel {
         intputFieldsPanel = new JPanel();
         intputFieldsPanel.setBorder(BorderFactory.createEmptyBorder(25, 50, 20, 50));
         intputFieldsPanel.setLayout(new BoxLayout(intputFieldsPanel, BoxLayout.PAGE_AXIS));
-        intputFieldsPanel.add(userTypeCb);
         intputFieldsPanel.add(emailLabel);
-        intputFieldsPanel.add(usernameInput);
+        intputFieldsPanel.add(emailInput);
         intputFieldsPanel.add(passwordLabel);
         intputFieldsPanel.add(passwordInput);
         intputFieldsPanel.add(loginButtonPanel);
 
         loginButton.addActionListener(e ->{
-            //todo get token
+            String email = emailInput.getText();
+            String password = String.valueOf(passwordInput.getPassword());
+
+            try {
+//                System.out.println(email+" " + password);
+                String token = userservice.login(email,password);
+                System.out.println(token);
+            } catch (RuntimeException ex) {
+                System.out.println("Netacan email i sifra");
+                //todo moglo bi izadje obavestenje da nije tacna sifra i mail
+            }catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         });
 
         this.add(intputFieldsPanel);
