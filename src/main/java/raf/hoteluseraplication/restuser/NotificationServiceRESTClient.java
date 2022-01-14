@@ -32,7 +32,7 @@ public class NotificationServiceRESTClient {
 
 
         Request request = new Request.Builder()
-                .url(URL + String.format("/sort/email_{email}", email))
+                .url(URL + String.format("/sort/email_%s", email))
                 .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
                 .get()
                 .build();
@@ -49,5 +49,7 @@ public class NotificationServiceRESTClient {
         }
         throw new RuntimeException();
     }
+
+
 
 }
