@@ -55,11 +55,11 @@ public class ClientView  extends JDialog {
         updatePasswordButton.addActionListener(e -> {
             String password = String.valueOf(updatePasswordField.getPassword());
             UserPasswordDto userPasswordDto = new UserPasswordDto();
-            userPasswordDto.setId(HotelUserApplication.getInstance().getCurrentUserId());
-            userPasswordDto.setEmail(HotelUserApplication.getInstance().getCurrentUserEmaiil());
+            userPasswordDto.setId(HotelUserApplication.getInstance().getUserInfoHolder().getId());
+            userPasswordDto.setEmail(HotelUserApplication.getInstance().getUserInfoHolder().getEmail());
             userPasswordDto.setPassword(password);
-            userPasswordDto.setName("tmp name");
-            userPasswordDto.setLastname("tmp lastname");
+            userPasswordDto.setName(HotelUserApplication.getInstance().getUserInfoHolder().getFirstname());
+            userPasswordDto.setLastname(HotelUserApplication.getInstance().getUserInfoHolder().getLastname());
             try {
                 userServiceRESTClient.changePassword(userPasswordDto.getId(), userPasswordDto);
             } catch (IOException ioException) {
