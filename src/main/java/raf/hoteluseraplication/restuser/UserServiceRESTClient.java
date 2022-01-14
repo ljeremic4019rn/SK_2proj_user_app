@@ -158,5 +158,4 @@ public class UserServiceRESTClient {
         else
             throw new RuntimeException();
     }
-
 }
