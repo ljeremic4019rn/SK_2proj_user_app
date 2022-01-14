@@ -11,7 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="proj_user_app" target="16" />
-      <module name="SK_2proj_user_app" target="16" />
+      <module name="SK_2proj_user_app" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
