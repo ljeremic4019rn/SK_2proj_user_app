@@ -143,11 +143,11 @@ public class UserServiceRESTClient {
 
         Response response = call.execute();
 
-        if (response.code() == 200) {
-            String json = response.body().string();
-        }
-        else
-            throw new RuntimeException();
+//        if (response.code() == 200) {
+//            String json = response.body().string();
+//        }
+//        else
+//            throw new RuntimeException();
     }
 
 }
