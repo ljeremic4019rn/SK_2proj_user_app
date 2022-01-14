@@ -34,13 +34,6 @@ public class HotelUserApplication extends JFrame {
         return instance;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public Long getCurrentUserId() {
         return currentUserId;

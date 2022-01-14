@@ -86,25 +86,25 @@ public class UserServiceRESTClient {
         }
     }
 
-    public void banUser(Long id) throws IOException {
-        String token = HotelUserApplication.getInstance().getToken();
-        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(id));
-
-        Request request = new Request.Builder()
-                .url(URL + String.format("/user/%d/ban_unban", id)) // URL koji gadjamo
-                .put(body)
-                .header("Authorization", "Bearer " + token)
-                .build();
-        Call call = user.newCall(request);
-
-        Response response = call.execute();
-
-        if (response.code() == 200) {
-            String json = response.body().string();
-        } else {
-            throw new RuntimeException();
-        }
-    }
+//    public void banUser(Long id) throws IOException {
+//        String token = HotelUserApplication.getInstance().getToken();
+//        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(id));
+//
+//        Request request = new Request.Builder()
+//                .url(URL + String.format("/user/%d/ban_unban", id)) // URL koji gadjamo
+//                .put(body)
+//                .header("Authorization", "Bearer " + token)
+//                .build();
+//        Call call = user.newCall(request);
+//
+//        Response response = call.execute();
+//
+//        if (response.code() == 200) {
+//            String json = response.body().string();
+//        } else {
+//            throw new RuntimeException();
+//        }
+//    }
 
 //    public List<RankDto> getRanks() throws IOException {
 //        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -129,7 +129,7 @@ public class UserServiceRESTClient {
 //    }
 
 //    public void changePassword(Long id,) throws IOException {
-
+//
 //        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientPasswordDto));
 //
 //        Request request = new Request.Builder()
