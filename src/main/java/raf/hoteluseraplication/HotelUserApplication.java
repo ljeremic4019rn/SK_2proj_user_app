@@ -10,6 +10,7 @@ import java.awt.*;
  */
 public class HotelUserApplication extends JFrame {
 
+    private String token;
     private Long currentUserId;
     private String currentUserEmaiil;
 
@@ -47,5 +48,13 @@ public class HotelUserApplication extends JFrame {
 
     public void setCurrentUserEmaiil(String currentUserEmaiil) {
         this.currentUserEmaiil = currentUserEmaiil;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

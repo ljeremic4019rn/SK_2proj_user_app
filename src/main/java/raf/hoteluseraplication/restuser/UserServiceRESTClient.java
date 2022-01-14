@@ -2,7 +2,9 @@ package raf.hoteluseraplication.restuser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import raf.hoteluseraplication.HotelUserApplication;
 import raf.hoteluseraplication.restuser.dto.*;
+import raf.hoteluseraplication.restuser.dto.notificationDtos.UserPasswordDto;
 
 
 import java.io.IOException;
@@ -77,5 +79,28 @@ public class UserServiceRESTClient {
 
         Response response = call.execute();
 
+    }
+
+    public void updateUserPassword(Long id, UserPasswordDto userPasswordDto) throws IOException {
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(userPasswordDto));
+
+        Request request = new Request.Builder()
+                .url(URL + String.format("/client/%d/changePassword-password", id))
+                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+                .put(body)
+                .build();
+
+        Call call = client.newCall(request);
+
+        Response response = call.execute();
+        System.out.println("pass sent");
+
+//        if (response.code() == 200) {
+//            String json = response.body().string();
+//            System.out.println(json);
+//        }
+//        else
+//            throw new RuntimeException();
     }
 }
