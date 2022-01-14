@@ -1,5 +1,6 @@
 package raf.hoteluseraplication;
 
+import raf.hoteluseraplication.restuser.tableComponents.UserInfoHolder;
 import raf.hoteluseraplication.view.HomeView;
 
 import javax.swing.*;
@@ -13,6 +14,8 @@ public class HotelUserApplication extends JFrame {
     private String token;
     private Long currentUserId;
     private String currentUserEmaiil;
+
+    private UserInfoHolder userInfoHolder;
 
     private static HotelUserApplication instance = new HotelUserApplication();
 
@@ -57,5 +60,13 @@ public class HotelUserApplication extends JFrame {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public UserInfoHolder getUserInfoHolder() {
+        return userInfoHolder;
+    }
+
+    public void setUserInfoHolder(UserInfoHolder userInfoHolder) {
+        this.userInfoHolder = userInfoHolder;
     }
 }

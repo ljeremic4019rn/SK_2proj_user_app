@@ -134,7 +134,7 @@ public class UserServiceRESTClient {
         RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(userPasswordDto));
 
         Request request = new Request.Builder()
-                .url(URL + String.format("/client/{id}/changePassword", id))
+                .url(URL + String.format("/user/2/changePassword", id))
                 .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
                 .put(body)
                 .build();
@@ -143,11 +143,11 @@ public class UserServiceRESTClient {
 
         Response response = call.execute();
 
-        if (response.code() == 200) {
-            String json = response.body().string();
-        }
-        else
-            throw new RuntimeException();
+//        if (response.code() == 200) {
+//            String json = response.body().string();
+//        }
+//        else
+//            throw new RuntimeException();
     }
 
 }

@@ -1,7 +1,9 @@
 package raf.hoteluseraplication.view;
 
 import raf.hoteluseraplication.HotelUserApplication;
+import raf.hoteluseraplication.TokenParser;
 import raf.hoteluseraplication.restuser.UserServiceRESTClient;
+import raf.hoteluseraplication.restuser.tableComponents.UserInfoHolder;
 import raf.hoteluseraplication.view.registerViews.RegisterClientView;
 import raf.hoteluseraplication.view.registerViews.RegisterManagerView;
 import raf.hoteluseraplication.view.userViews.AdminView;
@@ -87,10 +89,11 @@ public class HomeView extends JPanel {
                 String payload = new String(decoder.decode(chunks[1]));
                 System.out.println(payload);
 
-                String []payloadSplit = payload.split(",");
-                String []id = payloadSplit[0].split(":");
-                HotelUserApplication.getInstance().setCurrentUserId(Long.parseLong(id[1]));
-                HotelUserApplication.getInstance().setCurrentUserEmaiil(emailInput.getText());
+                TokenParser tokenParser = new TokenParser();
+                tokenParser.parseToken(payload);
+                UserInfoHolder userInfoHolder = tokenParser.parseToken(payload);
+
+                HotelUserApplication.getInstance().setUserInfoHolder(userInfoHolder);
                 HotelUserApplication.getInstance().setToken(token);
 
                 if(payload.contains("ROLE_ADMIN")){
