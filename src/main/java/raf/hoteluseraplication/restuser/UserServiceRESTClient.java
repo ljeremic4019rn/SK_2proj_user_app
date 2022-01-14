@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import raf.hoteluseraplication.HotelUserApplication;
 import raf.hoteluseraplication.restuser.dto.*;
+import raf.hoteluseraplication.restuser.dto.notificationDtos.UserPasswordDto;
 
 
 import java.io.IOException;
@@ -128,25 +129,25 @@ public class UserServiceRESTClient {
         throw new RuntimeException();
     }
 
-//    public void changePassword(Long id,) throws IOException {
-//
-//        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientPasswordDto));
-//
-//        Request request = new Request.Builder()
-//                .url(URL + String.format("/client/%d/update-password", id))
-//                .header("Authorization", "Bearer " + HotelClientApplication.getInstance().getToken())
-//                .put(body)
-//                .build();
-//
-//        Call call = client.newCall(request);
-//
-//        Response response = call.execute();
-//
-//        if (response.code() == 200) {
-//            String json = response.body().string();
-//        }
-//        else
-//            throw new RuntimeException();
-//    }
+    public void changePassword(Long id, UserPasswordDto userPasswordDto) throws IOException {
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(userPasswordDto));
+
+        Request request = new Request.Builder()
+                .url(URL + String.format("/client/{id}/changePassword", id))
+                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+                .put(body)
+                .build();
+
+        Call call = user.newCall(request);
+
+        Response response = call.execute();
+
+        if (response.code() == 200) {
+            String json = response.body().string();
+        }
+        else
+            throw new RuntimeException();
+    }
 
 }
