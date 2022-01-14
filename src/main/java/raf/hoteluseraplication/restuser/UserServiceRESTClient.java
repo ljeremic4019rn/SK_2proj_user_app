@@ -61,6 +61,12 @@ public class UserServiceRESTClient {
         Call call = user.newCall(request);
 
         Response response = call.execute();
+        if (response.code() == 201) {
+            String json = response.body().toString();
+//            ClientDto dto = objectMapper.readValue(json, ClientDto.class);
+            System.out.println("Poslat vam je mejl za potvrdu");
+        }else
+            throw new RuntimeException();
 
     }
 
@@ -82,9 +88,11 @@ public class UserServiceRESTClient {
         // ako je login vratio 200, deserijalizujemo i dobijamo TokenResponseDto koji sadrzi token, koji vracamo u View da ga pamtimo
         if (response.code() == 201) {
             String json = response.body().toString();
+            System.out.println("Poslat vam je mejl za potvrdu");
 //            ClientDto dto = objectMapper.readValue(json, ClientDto.class);
             System.out.println(json);
-        }
+        }else
+            throw new RuntimeException();
     }
 
 //    public void banUser(Long id) throws IOException {
@@ -143,11 +151,12 @@ public class UserServiceRESTClient {
 
         Response response = call.execute();
 
-//        if (response.code() == 200) {
+        if (response.code() == 200) {
 //            String json = response.body().string();
-//        }
-//        else
-//            throw new RuntimeException();
+            System.out.println("Poslat vam je mejl za potvrdu");
+        }
+        else
+            throw new RuntimeException();
     }
 
 }
