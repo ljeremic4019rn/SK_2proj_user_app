@@ -1,5 +1,6 @@
 package raf.hoteluseraplication.restuser.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ public class ClientCreateDto {
     private String username;
     private String password;
     private Long phoneNumber;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String rankName;
 
     public Long getPassportNo() {
@@ -81,11 +82,11 @@ public class ClientCreateDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }

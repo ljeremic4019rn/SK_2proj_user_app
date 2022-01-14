@@ -1,6 +1,7 @@
 package raf.hoteluseraplication.view;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import raf.hoteluseraplication.restuser.dto.ClientCreateDto;
 //import raf.hotelclientapplication.restclient.UserServiceRestClient;
 //import raf.hotelclientapplication.restclient.dto.ClientCreateDto;
 
@@ -24,7 +25,7 @@ public class RegisterClientView extends JDialog {
     private JLabel birthDateLabel;
 
     private JPasswordField passwordField;
-    private JPasswordField reservationNumField;
+    private JTextField reservationNumField;
     private JTextField emailField ;
     private JTextField firstNameField;
     private JTextField lastNameField ;
@@ -92,25 +93,30 @@ public class RegisterClientView extends JDialog {
 
         registerPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         registerPanel.add(registerButton);
-//
-//        registerButton.addActionListener(e -> {
-//            ClientCreateDto clientCreateDto = new ClientCreateDto();
-//            clientCreateDto.setEmail(emailInput.getText());
-//            clientCreateDto.setFirstName(firstNameInput.getText());
-//            clientCreateDto.setLastName(lastNameInput.getText());
-//            clientCreateDto.setPassportNumber(passportInput.getText());
-//            clientCreateDto.setPhoneNumber(phoneNumberInput.getText());
-//            clientCreateDto.setUsername(usernameInput.getText());
-//            clientCreateDto.setPassword(String.valueOf(passwordInput.getPassword()));
-//            clientCreateDto.setBirthday(LocalDate.of(Integer.parseInt(yearInput.getText()), Integer.parseInt(monthInput.getText()), Integer.parseInt(dayInput.getText())));
-//            DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        registerButton.addActionListener(e -> {
+            ClientCreateDto clientCreateDto = new ClientCreateDto();
+
+            clientCreateDto.setEmail(emailField.getText());
+            clientCreateDto.setFirstName(firstNameField.getText());
+            clientCreateDto.setLastName(lastNameField.getText());
+            clientCreateDto.setPassportNo(Long.parseLong(passportField.getText()));
+            clientCreateDto.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
+            clientCreateDto.setUsername(usernameField.getText());
+            clientCreateDto.setPassword(String.valueOf(passwordField.getPassword()));
+            clientCreateDto.setReservationNo(Long.parseLong(reservationNumField.getText()));
+
+            DateTimeFormatter.ofPattern("dd-MM-yyyy");
+           // clientCreateDto.setBirthDate();
+
+
 //            try {
 //                userServiceRestClient.registerClient(clientCreateDto);
 //            } catch (IOException jsonProcessingException) {
 //                jsonProcessingException.printStackTrace();
 //            }
 //            this.setVisible(false);
-//        });
+        });
 
         this.add(registerPanel);
         this.pack();
