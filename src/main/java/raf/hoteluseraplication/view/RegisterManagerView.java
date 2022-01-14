@@ -1,6 +1,8 @@
 package raf.hoteluseraplication.view;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import raf.hoteluseraplication.restuser.UserServiceRESTClient;
+import raf.hoteluseraplication.restuser.dto.ManagerCreateDto;
 //import raf.hotelclientapplication.restclient.UserServiceRestClient;
 //import raf.hotelclientapplication.restclient.dto.ManagerCreateDto;
 
@@ -33,7 +35,7 @@ public class RegisterManagerView extends JDialog {
     private JTextField hireDateField;
 
     private JButton registerButton = new JButton("Register");
-//    private UserServiceRestClient userServiceRestClient = new UserServiceRestClient();
+    private UserServiceRESTClient userServiceRESTClient = new UserServiceRESTClient();
     private ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -87,36 +89,34 @@ public class RegisterManagerView extends JDialog {
 
         registerPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         registerPanel.add(registerButton);
-//
-//        registerButton.addActionListener(e -> {
-//            ManagerCreateDto managerCreateDto = new ManagerCreateDto();
-//            managerCreateDto.setEmail(emailInput.getText());
-//            managerCreateDto.setFirstName(firstNameInput.getText());
-//            managerCreateDto.setLastName(lastNameInput.getText());
-//            managerCreateDto.setUsername(usernameInput.getText());
-//            managerCreateDto.setPassword(String.valueOf(passwordInput.getPassword()));
-//            managerCreateDto.setPhoneNumber(phoneNumberInput.getText());
-//            managerCreateDto.setBirthday(LocalDate.of(Integer.parseInt(yearInput.getText()), Integer.parseInt(monthInput.getText()), Integer.parseInt(dayInput.getText())));
-//            DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//            managerCreateDto.setEmploymentDate(LocalDate.of(Integer.parseInt(employmentYearInput.getText()), Integer.parseInt(employmentMonthInput.getText()), Integer.parseInt(employmentDayInput.getText())));
-//            DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//            managerCreateDto.setHotel(hotelInput.getText());
-//            try {
-//                userServiceRestClient.registerManager(managerCreateDto);
-//            } catch (IOException jsonProcessingException) {
-//                jsonProcessingException.printStackTrace();
-//            }
-//            this.setVisible(false);
-//        });
+
+        registerButton.addActionListener(e -> {
+            ManagerCreateDto managerCreateDto = new ManagerCreateDto();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+            managerCreateDto.setEmail(emailField.getText());
+            managerCreateDto.setFirstName(firstNameField.getText());
+            managerCreateDto.setLastName(lastNameField.getText());
+            managerCreateDto.setUsername(usernameField.getText());
+            managerCreateDto.setPassword(String.valueOf(passwordField.getPassword()));
+            managerCreateDto.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
+            managerCreateDto.setHotel(hotelField.getText());
+            LocalDate birthDateFormated = LocalDate.parse(birthDateField.getText(), dateTimeFormatter);
+            managerCreateDto.setBirthDate(birthDateFormated);
+            LocalDate hireDateFormated = LocalDate.parse(birthDateField.getText(), dateTimeFormatter);
+            managerCreateDto.setHireDate(hireDateFormated);
+
+            try {
+                userServiceRESTClient.registerManager(managerCreateDto);
+            } catch (IOException jsonProcessingException) {
+                jsonProcessingException.printStackTrace();
+            }
+            this.setVisible(false);
+        });
 
         this.add(registerPanel);
         this.pack();
         this.setModalityType(ModalityType.APPLICATION_MODAL);
         this.setVisible(true);
-
-
-
-
-
     }
 }

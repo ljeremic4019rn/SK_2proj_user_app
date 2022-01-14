@@ -1,6 +1,7 @@
 package raf.hoteluseraplication.view;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import raf.hoteluseraplication.restuser.UserServiceRESTClient;
 import raf.hoteluseraplication.restuser.dto.ClientCreateDto;
 //import raf.hotelclientapplication.restclient.UserServiceRestClient;
 //import raf.hotelclientapplication.restclient.dto.ClientCreateDto;
@@ -37,7 +38,7 @@ public class RegisterClientView extends JDialog {
 
     private JButton registerButton = new JButton("Register");
 
-//    private UserServiceRestClient userServiceRestClient = new UserServiceRestClient();
+    private UserServiceRESTClient userServiceRESTClient = new UserServiceRESTClient();
     private ObjectMapper objectMapper = new ObjectMapper();
 
 
@@ -96,6 +97,7 @@ public class RegisterClientView extends JDialog {
 
         registerButton.addActionListener(e -> {
             ClientCreateDto clientCreateDto = new ClientCreateDto();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
             clientCreateDto.setEmail(emailField.getText());
             clientCreateDto.setFirstName(firstNameField.getText());
@@ -105,27 +107,21 @@ public class RegisterClientView extends JDialog {
             clientCreateDto.setUsername(usernameField.getText());
             clientCreateDto.setPassword(String.valueOf(passwordField.getPassword()));
             clientCreateDto.setReservationNo(Long.parseLong(reservationNumField.getText()));
+            LocalDate birthDateFormated = LocalDate.parse(birthDateField.getText(), dateTimeFormatter);
+            clientCreateDto.setBirthDate(birthDateFormated);
 
-            DateTimeFormatter.ofPattern("dd-MM-yyyy");
-           // clientCreateDto.setBirthDate();
 
-
-//            try {
-//                userServiceRestClient.registerClient(clientCreateDto);
-//            } catch (IOException jsonProcessingException) {
-//                jsonProcessingException.printStackTrace();
-//            }
-//            this.setVisible(false);
+            try {
+                userServiceRESTClient.registerClient(clientCreateDto);
+            } catch (IOException jsonProcessingException) {
+                jsonProcessingException.printStackTrace();
+            }
+            this.setVisible(false);
         });
 
         this.add(registerPanel);
         this.pack();
         this.setModalityType(ModalityType.APPLICATION_MODAL);
         this.setVisible(true);
-
-
-
-
-
     }
 }

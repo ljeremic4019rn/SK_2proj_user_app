@@ -13,8 +13,7 @@ public class UserServiceRESTClient {
 
     public static final String URL = "http://localhost:8080/api";
 
-    public static final MediaType JSON
-            = MediaType.get("application/json; charset=utf-8");
+    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     OkHttpClient user = new OkHttpClient();
     OkHttpClient manager = new OkHttpClient();
