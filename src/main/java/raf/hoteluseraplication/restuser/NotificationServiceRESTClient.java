@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import okhttp3.*;
+import raf.hoteluseraplication.HotelUserApplication;
+import raf.hoteluseraplication.restuser.dto.NotificationListDto;
 
 import java.io.IOException;
 
@@ -22,30 +24,30 @@ public class NotificationServiceRESTClient {
     private OkHttpClient user = new OkHttpClient();
 
 
-//    public NotificationListDto getNotificationsByEmail(String email) throws IOException {
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        JavaTimeModule module = new JavaTimeModule();
-//        objectMapper.registerModule(module);
-//        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-//
-//
-//        Request request = new Request.Builder()
-//                .url(URL + String.format("/notification/filter/email=%s", email))
-//                .header("Authorization", "Bearer " + HotelClientApplication.getInstance().getToken())
-//                .get()
-//                .build();
-//
-//        Call call = client.newCall(request);
-//
-//        Response response = call.execute();
-//
-//        if (response.code() == 200) {
-//            String json = response.body().string();
-//
-//
-//            return objectMapper.readValue(json, Page.class);
-//        }
-//        throw new RuntimeException();
-//    }
+    public NotificationListDto getNotificationsByEmail(String email) throws IOException {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        JavaTimeModule module = new JavaTimeModule();
+        objectMapper.registerModule(module);
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+
+        Request request = new Request.Builder()
+                .url(URL + String.format("/sort/email_{email}", email))
+                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+                .get()
+                .build();
+
+        Call call = user.newCall(request);
+
+        Response response = call.execute();
+
+        if (response.code() == 200) {
+            String json = response.body().string();
+
+
+            return objectMapper.readValue(json, NotificationListDto.class);
+        }
+        throw new RuntimeException();
+    }
 
 }
