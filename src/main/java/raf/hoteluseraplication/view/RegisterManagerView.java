@@ -92,7 +92,6 @@ public class RegisterManagerView extends JDialog {
 
         registerButton.addActionListener(e -> {
             ManagerCreateDto managerCreateDto = new ManagerCreateDto();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
             managerCreateDto.setEmail(emailField.getText());
             managerCreateDto.setFirstName(firstNameField.getText());
@@ -101,10 +100,8 @@ public class RegisterManagerView extends JDialog {
             managerCreateDto.setPassword(String.valueOf(passwordField.getPassword()));
             managerCreateDto.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
             managerCreateDto.setHotel(hotelField.getText());
-            LocalDate birthDateFormated = LocalDate.parse(birthDateField.getText(), dateTimeFormatter);
-            managerCreateDto.setBirthDate(birthDateFormated);
-            LocalDate hireDateFormated = LocalDate.parse(birthDateField.getText(), dateTimeFormatter);
-            managerCreateDto.setHireDate(hireDateFormated);
+            managerCreateDto.setBirthDate(birthDateField.getText());
+            managerCreateDto.setHireDate(hireDateField.getText());
 
             try {
                 userServiceRESTClient.registerManager(managerCreateDto);

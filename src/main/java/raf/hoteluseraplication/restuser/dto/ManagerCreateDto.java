@@ -8,14 +8,14 @@ import java.util.Date;
  */
 public class ManagerCreateDto {
     private String hotel;
-    private LocalDate hireDate;
+    private String hireDate;
     private String email;
     private String firstName;
     private String lastName;
     private String username;
     private String password;
     private Long phoneNumber;
-    private LocalDate birthDate;
+    private String birthDate;
 
     public String getHotel() {
         return hotel;
@@ -25,11 +25,11 @@ public class ManagerCreateDto {
         this.hotel = hotel;
     }
 
-    public LocalDate getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(LocalDate hireDate) {
+    public void setHireDate(String hireDate) {
         this.hireDate = hireDate;
     }
 
@@ -81,11 +81,11 @@ public class ManagerCreateDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 }
