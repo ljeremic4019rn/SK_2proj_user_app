@@ -1,9 +1,17 @@
 package raf.hoteluseraplication.view;
 
+import raf.hoteluseraplication.HotelUserApplication;
 import raf.hoteluseraplication.restuser.UserServiceRESTClient;
+import raf.hoteluseraplication.view.registerViews.RegisterClientView;
+import raf.hoteluseraplication.view.registerViews.RegisterManagerView;
+import raf.hoteluseraplication.view.userViews.AdminView;
+import raf.hoteluseraplication.view.userViews.ClientView;
+import raf.hoteluseraplication.view.userViews.ManagerUpdateView;
+import raf.hoteluseraplication.view.userViews.ManagerView;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.Base64;
 
 /**
  * Created on 14.01.2022. by Andrija inside package raf.hoteluseraplication.view.
@@ -70,12 +78,32 @@ public class HomeView extends JPanel {
             String password = String.valueOf(passwordInput.getPassword());
 
             try {
-//                System.out.println(email+" " + password);
                 String token = userservice.login(email,password);
                 System.out.println(token);
+
+                String[] chunks = token.split("\\.");
+                Base64.Decoder decoder = Base64.getUrlDecoder();
+                String header = new String(decoder.decode(chunks[0]));
+                String payload = new String(decoder.decode(chunks[1]));
+                System.out.println(payload);
+
+                String []payloadSplit = payload.split(",");
+                String []id = payloadSplit[0].split(":");
+                HotelUserApplication.getInstance().setCurrentUserId(Long.parseLong(id[1]));
+                HotelUserApplication.getInstance().setCurrentUserEmaiil(emailInput.getText());
+
+                if(payload.contains("ROLE_ADMIN")){
+                    new AdminView();
+                } else if(payload.contains("ROLE_CLIENT")){
+                    new ClientView();
+                } else if(payload.contains("ROLE_MANAGER")){
+                    new ManagerView();
+                    new ManagerUpdateView();
+                }
+
+
             } catch (RuntimeException ex) {
                 System.out.println("Netacan email i sifra");
-                //todo moglo bi izadje obavestenje da nije tacna sifra i mail
             }catch (IOException ex) {
                 ex.printStackTrace();
             }

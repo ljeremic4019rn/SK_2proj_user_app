@@ -10,6 +10,9 @@ import java.awt.*;
  */
 public class HotelUserApplication extends JFrame {
 
+    private Long currentUserId;
+    private String currentUserEmaiil;
+
     private static HotelUserApplication instance = new HotelUserApplication();
 
     private HotelUserApplication() {
@@ -28,5 +31,21 @@ public class HotelUserApplication extends JFrame {
 
     public static HotelUserApplication getInstance() {
         return instance;
+    }
+
+    public Long getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public void setCurrentUserId(Long currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
+    public String getCurrentUserEmaiil() {
+        return currentUserEmaiil;
+    }
+
+    public void setCurrentUserEmaiil(String currentUserEmaiil) {
+        this.currentUserEmaiil = currentUserEmaiil;
     }
 }
