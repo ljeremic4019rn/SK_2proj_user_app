@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
-/**
- * Created on 14.01.2022. by Andrija inside package raf.hoteluseraplication.restuser.dto.
- */
 public class NotificationDto {
     private Long id;
     private String clientEmail;
@@ -14,6 +11,7 @@ public class NotificationDto {
     @JsonProperty("type")
     private NotificationTypeDto notificationTypeDto;
     private LocalDate creationDate;
+
 
     public Long getId() {
         return id;

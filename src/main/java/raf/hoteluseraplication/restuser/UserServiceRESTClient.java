@@ -61,11 +61,6 @@ public class UserServiceRESTClient {
 
         Response response = call.execute();
 
-        // ako je login vratio 200, deserijalizujemo i dobijamo TokenResponseDto koji sadrzi token, koji vracamo u View da ga setuje globalno
-        if (response.code() == 201) {
-            String json = response.body().string();
-//            TokenResponseDto dto = objectMapper.readValue(json, TokenResponseDto.class);
-        }
     }
 
     public void registerClient(ClientCreateDto clientCreateDto) throws IOException {
