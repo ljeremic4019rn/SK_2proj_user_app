@@ -1,11 +1,15 @@
 package raf.hoteluseraplication.restuser.tableComponents;
 
+import raf.hoteluseraplication.restuser.dto.CustomNotificationDto;
+import raf.hoteluseraplication.restuser.dto.CustomNotificationListDto;
+import raf.hoteluseraplication.restuser.dto.NotificationListDto;
+
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 
 public class NotificationTable extends DefaultTableModel {
 
-    private NotificationListDto notificationListDto = new NotificationListDto();
+    private CustomNotificationListDto notificationListDto = new CustomNotificationListDto();
 
     public NotificationTable(){
         super(new String[]{"Email", "Type", "Date", "Text"}, 0);
@@ -14,20 +18,20 @@ public class NotificationTable extends DefaultTableModel {
     @Override
     public void addRow(Object[] rowData) {
         super.addRow(rowData);
-        NotificationDto notificationDto = new NotificationDto();
-        notificationDto.setClientEmail(String.valueOf(rowData[0]));
-        notificationDto.setNotificationTypeDto((NotificationTypeDto) rowData[1]);
+        CustomNotificationDto notificationDto = new CustomNotificationDto();
+        notificationDto.setEmail(String.valueOf(rowData[0]));
+        notificationDto.setType((String) rowData[1]);
         notificationDto.setCreationDate((LocalDate) rowData[2]);
         notificationDto.setText(String.valueOf(rowData[3]));
         notificationListDto.getContent().add(notificationDto);
 
     }
 
-    public NotificationListDto getNotificationListDto() {
+    public CustomNotificationListDto getNotificationListDto() {
         return notificationListDto;
     }
 
-    public void setNotificationListDto(NotificationListDto notificationListDto) {
+    public void setNotificationListDto(CustomNotificationListDto notificationListDto) {
         this.notificationListDto = notificationListDto;
     }
 }

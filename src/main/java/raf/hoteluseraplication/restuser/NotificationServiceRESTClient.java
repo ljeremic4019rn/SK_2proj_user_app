@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import okhttp3.*;
 import raf.hoteluseraplication.HotelUserApplication;
-import raf.hoteluseraplication.restuser.tableComponents.NotificationListDto;
+import raf.hoteluseraplication.restuser.dto.ActivationNotifListDto;
+import raf.hoteluseraplication.restuser.dto.CustomNotificationListDto;
+import raf.hoteluseraplication.restuser.dto.NotificationListDto;
 
 import java.io.IOException;
 
@@ -24,17 +26,17 @@ public class NotificationServiceRESTClient {
     private OkHttpClient user = new OkHttpClient();
 
 
-    public NotificationListDto getActivationNotificationsByEmail(String email) throws IOException {
+    public CustomNotificationListDto getActivationNotificationsByEmail(String email) throws IOException {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JavaTimeModule module = new JavaTimeModule();
         objectMapper.registerModule(module);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
         System.out.println("kupimo mailove");
-
+        System.out.println(email);
         Request request = new Request.Builder()
-                .url(URL + String.format("/notification/sort/email_%s", email))
-                .header("Authorization", "Beareri " + HotelUserApplication.getInstance().getToken())
+                .url(URL + String.format("/notification/sort/email-%s", email))
+                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
                 .get()
                 .build();
 
@@ -43,15 +45,20 @@ public class NotificationServiceRESTClient {
         Response response = call.execute();
 
         if (response.code() == 200) {
+            System.out.println("code 200");
             String json = response.body().string();
 
             System.out.println(json);
+            return objectMapper.readValue(json, CustomNotificationListDto.class);
 
-
-            return objectMapper.readValue(json, NotificationListDto.class);
         }
+        System.out.println(response.code());
+
         throw new RuntimeException();
     }
+
+
+
 
     public NotificationListDto getNotificationsBetweenDates(String startDate,String endDate) throws IOException {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

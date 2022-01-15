@@ -4,8 +4,8 @@ package raf.hoteluseraplication.view.userViews;
 import raf.hoteluseraplication.HotelUserApplication;
 import raf.hoteluseraplication.restuser.NotificationServiceRESTClient;
 import raf.hoteluseraplication.restuser.UserServiceRESTClient;
+import raf.hoteluseraplication.restuser.dto.*;
 import raf.hoteluseraplication.restuser.dto.notificationDtos.UserPasswordDto;
-import raf.hoteluseraplication.restuser.tableComponents.NotificationListDto;
 import raf.hoteluseraplication.restuser.tableComponents.NotificationTable;
 
 import javax.swing.*;
@@ -74,16 +74,19 @@ public class ClientView  extends JDialog {
         jTable = new JTable(notificationTable);
 
         updateListBtn.addActionListener(e -> {
-            NotificationListDto notificationListDto = null;
+            CustomNotificationListDto customNotificationListDto = null;
             try {
-                notificationListDto = notificationServiceRESTClient.getActivationNotificationsByEmail("ljeremic4019rn@raf.rs");
+                customNotificationListDto = notificationServiceRESTClient.getActivationNotificationsByEmail(HotelUserApplication.getInstance().getUserInfoHolder().getEmail());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            notificationListDto.getContent().forEach(notificationDto -> {
-                notificationTable.addRow(new Object[]{notificationDto.getClientEmail(), notificationDto.getNotificationTypeDto(),
-                        notificationDto.getCreationDate(), notificationDto.getText()});
-            });
+            for (CustomNotificationDto a :customNotificationListDto.getContent()) {
+                notificationTable.addRow(new Object[]{a.getEmail(),a.getType(),a.getCreationDate(),a.getText()});
+            }
+//            activationNotifListDto.getContent().forEach(notificationDto -> {
+//                notificationTable.addRow(new Object[]{notificationDto.getClientEmail(), notificationDto.getNotificationTypeDto(),
+//                        notificationDto.getCreationDate(), notificationDto.getText()});
+//            });
         });
 
         JScrollPane notificationTablePane = new JScrollPane();

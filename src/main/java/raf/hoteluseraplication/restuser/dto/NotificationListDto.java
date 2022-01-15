@@ -1,4 +1,6 @@
-package raf.hoteluseraplication.restuser.tableComponents;
+package raf.hoteluseraplication.restuser.dto;
+
+import raf.hoteluseraplication.restuser.tableComponents.NotificationDto;
 
 import java.util.ArrayList;
 import java.util.List;
