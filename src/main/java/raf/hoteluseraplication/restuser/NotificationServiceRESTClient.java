@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import okhttp3.*;
 import raf.hoteluseraplication.HotelUserApplication;
-import raf.hoteluseraplication.restuser.dto.NotificationListDto;
+import raf.hoteluseraplication.restuser.tableComponents.NotificationListDto;
 
 import java.io.IOException;
 
@@ -24,16 +24,17 @@ public class NotificationServiceRESTClient {
     private OkHttpClient user = new OkHttpClient();
 
 
-    public NotificationListDto getNotificationsByEmail(String email) throws IOException {
+    public NotificationListDto getActivationNotificationsByEmail(String email) throws IOException {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JavaTimeModule module = new JavaTimeModule();
         objectMapper.registerModule(module);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
+        System.out.println("kupimo mailove");
 
         Request request = new Request.Builder()
-                .url(URL + String.format("/sort/email_%s", email))
-                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+                .url(URL + String.format("/notification/sort/email_%s", email))
+                .header("Authorization", "Beareri " + HotelUserApplication.getInstance().getToken())
                 .get()
                 .build();
 
@@ -43,6 +44,8 @@ public class NotificationServiceRESTClient {
 
         if (response.code() == 200) {
             String json = response.body().string();
+
+            System.out.println(json);
 
 
             return objectMapper.readValue(json, NotificationListDto.class);

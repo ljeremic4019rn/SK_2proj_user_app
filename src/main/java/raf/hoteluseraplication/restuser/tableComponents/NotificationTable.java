@@ -1,9 +1,5 @@
 package raf.hoteluseraplication.restuser.tableComponents;
 
-import raf.hoteluseraplication.restuser.dto.NotificationDto;
-import raf.hoteluseraplication.restuser.dto.NotificationListDto;
-import raf.hoteluseraplication.restuser.dto.NotificationTypeDto;
-
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 
