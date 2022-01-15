@@ -64,7 +64,7 @@ public class UserServiceRESTClient {
         if (response.code() == 201) {
             String json = response.body().toString();
 //            ClientDto dto = objectMapper.readValue(json, ClientDto.class);
-            System.out.println("Poslat vam je mejl za potvrdu");
+            System.out.println("A confirmation link has been sent to you email");
         }else
             throw new RuntimeException();
 
@@ -88,8 +88,7 @@ public class UserServiceRESTClient {
         // ako je login vratio 200, deserijalizujemo i dobijamo TokenResponseDto koji sadrzi token, koji vracamo u View da ga pamtimo
         if (response.code() == 201) {
             String json = response.body().toString();
-            System.out.println("Poslat vam je mejl za potvrdu");
-//            ClientDto dto = objectMapper.readValue(json, ClientDto.class);
+            System.out.println("A confirmation link has been sent to you email");
             System.out.println(json);
         }else
             throw new RuntimeException();
@@ -153,9 +152,51 @@ public class UserServiceRESTClient {
 
         if (response.code() == 200) {
 //            String json = response.body().string();
-            System.out.println("Poslat vam je mejl za potvrdu");
+            System.out.println("A confirmation link has been sent to you email");
         }
         else
             throw new RuntimeException();
+    }
+
+    public void updateManagerProfile(Long id, ManagerUpdateDto managerUpdateDto) throws IOException {
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(managerUpdateDto));
+
+        Request request = new Request.Builder()
+                .url(URL + String.format("/manager/%d/updateProfile", id))
+                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+                .put(body)
+                .build();
+
+        Call call = user.newCall(request);
+
+        Response response = call.execute();
+
+        if (response.code() == 200) {
+            System.out.println("Profile has been updated");
+        }
+
+        throw new RuntimeException();
+    }
+
+    public void updateClientProfile(Long id, ClientUpdateDto clientUpdateDto) throws IOException {
+
+        RequestBody body = RequestBody.create(JSON, objectMapper.writeValueAsString(clientUpdateDto));
+
+        Request request = new Request.Builder()
+                .url(URL + String.format("/client/%d/updateProfile", id))
+                .header("Authorization", "Bearer " + HotelUserApplication.getInstance().getToken())
+                .put(body)
+                .build();
+
+        Call call = user.newCall(request);
+
+        Response response = call.execute();
+
+        if (response.code() == 200) {
+            System.out.println("Profile has been updated");
+        }
+
+        throw new RuntimeException();
     }
 }

@@ -102,7 +102,7 @@ public class HomeView extends JPanel {
                     new ClientView();
                 } else if(payload.contains("ROLE_MANAGER")){
                     new ManagerView();
-                    new ManagerUpdateView();
+//                    new ManagerUpdateView();
                 }
 
 
