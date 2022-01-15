@@ -1,9 +1,16 @@
 package raf.hoteluseraplication.view.userViews;
 
+import raf.hoteluseraplication.restuser.UserServiceRESTClient;
+import raf.hoteluseraplication.restuser.dto.ClientUpdateDto;
+import raf.hoteluseraplication.restuser.dto.ManagerUpdateDto;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ClientUpdateView extends JDialog{
+
+    private UserServiceRESTClient userServiceRESTClient = new UserServiceRESTClient();
+
     private JLabel passportNumberLabel;
     private JLabel reservationNumLabel;
     private JLabel firstNameLabel;
@@ -64,8 +71,8 @@ public class ClientUpdateView extends JDialog{
         updatePanel.add(lastNameField);
         updatePanel.add(usernameLabel);
         updatePanel.add(usernameField);
-        updatePanel.add(passwordLabel);
-        updatePanel.add(passwordField);
+//        updatePanel.add(passwordLabel);
+//        updatePanel.add(passwordField);
         updatePanel.add(phoneNumberLabel);
         updatePanel.add(phoneNumberField);
         updatePanel.add(birthDateLabel);
@@ -75,7 +82,13 @@ public class ClientUpdateView extends JDialog{
         updatePanel.add(updateBtn);
 
         updateBtn.addActionListener(e ->{
-
+            ClientUpdateDto clientUpdateDto = new ClientUpdateDto();
+            clientUpdateDto.setFirstName(firstNameField.getText());
+            clientUpdateDto.setLastName(lastNameField.getText());
+            clientUpdateDto.setBirthDate(birthDateField.getText());
+            clientUpdateDto.setPhoneNumber(Long.valueOf(phoneNumberField.getText()));
+            clientUpdateDto.setUsername(usernameField.getText());
+            clientUpdateDto.setPassportNumber(passportField.getText());
         });
 
 

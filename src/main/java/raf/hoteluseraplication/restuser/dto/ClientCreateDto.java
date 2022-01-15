@@ -7,7 +7,7 @@ import java.util.Date;
  * Created on 14.01.2022. by Andrija inside package raf.hoteluseraplication.restuser.dto.
  */
 public class ClientCreateDto {
-    private Long passportNo;
+    private String passportNo;
     private Long reservationNo;
     private String email;
     private String firstName;
@@ -18,11 +18,11 @@ public class ClientCreateDto {
     private String birthDate;
     private String rankName;
 
-    public Long getPassportNo() {
+    public String getPassportNo() {
         return passportNo;
     }
 
-    public void setPassportNo(Long passportNo) {
+    public void setPassportNo(String passportNo) {
         this.passportNo = passportNo;
     }
 

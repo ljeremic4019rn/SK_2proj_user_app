@@ -174,6 +174,7 @@ public class UserServiceRESTClient {
 
         if (response.code() == 200) {
             System.out.println("Profile has been updated");
+            return;
         }
 
         throw new RuntimeException();
@@ -195,6 +196,7 @@ public class UserServiceRESTClient {
 
         if (response.code() == 200) {
             System.out.println("Profile has been updated");
+            return;
         }
 
         throw new RuntimeException();

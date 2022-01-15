@@ -99,7 +99,7 @@ public class RegisterClientView extends JDialog {
             clientCreateDto.setEmail(emailField.getText());
             clientCreateDto.setFirstName(firstNameField.getText());
             clientCreateDto.setLastName(lastNameField.getText());
-            clientCreateDto.setPassportNo(Long.parseLong(passportField.getText()));
+            clientCreateDto.setPassportNo(passportField.getText());
             clientCreateDto.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
             clientCreateDto.setUsername(usernameField.getText());
             clientCreateDto.setPassword(String.valueOf(passwordField.getPassword()));
