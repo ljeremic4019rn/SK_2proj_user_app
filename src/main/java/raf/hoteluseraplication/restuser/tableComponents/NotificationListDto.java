@@ -1,4 +1,4 @@
-package raf.hoteluseraplication.restuser.dto;
+package raf.hoteluseraplication.restuser.tableComponents;
 
 import java.util.ArrayList;
 import java.util.List;

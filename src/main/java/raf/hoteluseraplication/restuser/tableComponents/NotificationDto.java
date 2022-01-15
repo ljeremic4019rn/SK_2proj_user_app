@@ -1,4 +1,4 @@
-package raf.hoteluseraplication.restuser.dto;
+package raf.hoteluseraplication.restuser.tableComponents;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +15,7 @@ public class NotificationDto {
     private String text;
     @JsonProperty("type")
     private NotificationTypeDto notificationTypeDto;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate creationDate;

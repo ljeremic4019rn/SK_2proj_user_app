@@ -5,6 +5,7 @@ import raf.hoteluseraplication.HotelUserApplication;
 import raf.hoteluseraplication.restuser.NotificationServiceRESTClient;
 import raf.hoteluseraplication.restuser.UserServiceRESTClient;
 import raf.hoteluseraplication.restuser.dto.notificationDtos.UserPasswordDto;
+import raf.hoteluseraplication.restuser.tableComponents.NotificationListDto;
 import raf.hoteluseraplication.restuser.tableComponents.NotificationTable;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class ClientView  extends JDialog {
     private JLabel updatePasswordLabel = new JLabel("New password:");
     private JPasswordField updatePasswordField = new JPasswordField(15);
     private JButton updatePasswordButton = new JButton("Save password");
+    private JButton updateListBtn = new JButton("Update List");
 //
 //    private JLabel emailLabel = new JLabel("Enter your email:");
 //    private JTextField emailInput = new JTextField(20);
@@ -45,6 +47,7 @@ public class ClientView  extends JDialog {
         TopPanel.add(Box.createRigidArea(new Dimension(0,10)));
         TopPanel.add(updatePasswordButton);
         TopPanel.add(updateClientProfileButton);
+        TopPanel.add(updateListBtn);
         mainPanel.add(TopPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0,20)));
 
@@ -67,14 +70,22 @@ public class ClientView  extends JDialog {
             }
         });
 
-
-
         notificationTable = new NotificationTable();
         jTable = new JTable(notificationTable);
-//        NotificationListDto notificationListDto = notificationServiceRESTClient.getClientNotifications(HotelClientApplication.getInstance().getUser().getId());
-//        notificationListDto.getContent().forEach(notificationDto -> {
-//            notificationTableModel.addRow(new Object[]{notificationDto.getEmail(), notificationDto.getType(), notificationDto.getDateCreated(), notificationDto.getMessage()});
-//        });
+
+        updateListBtn.addActionListener(e -> {
+            NotificationListDto notificationListDto = null;
+            try {
+                notificationListDto = notificationServiceRESTClient.getActivationNotificationsByEmail("ljeremic4019rn@raf.rs");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            notificationListDto.getContent().forEach(notificationDto -> {
+                notificationTable.addRow(new Object[]{notificationDto.getClientEmail(), notificationDto.getNotificationTypeDto(),
+                        notificationDto.getCreationDate(), notificationDto.getText()});
+            });
+        });
+
         JScrollPane notificationTablePane = new JScrollPane();
 //        notificationTablePane.add(notificationTable);
         notificationTablePane.setViewportView(jTable);
