@@ -74,6 +74,7 @@ public class ClientView  extends JDialog {
         jTable = new JTable(notificationTable);
 
         updateListBtn.addActionListener(e -> {
+            notificationTable.emptyList();
             CustomNotificationListDto customNotificationListDto = null;
             try {
                 customNotificationListDto = notificationServiceRESTClient.getActivationNotificationsByEmail(HotelUserApplication.getInstance().getUserInfoHolder().getEmail());

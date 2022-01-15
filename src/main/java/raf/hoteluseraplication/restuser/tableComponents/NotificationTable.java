@@ -27,6 +27,11 @@ public class NotificationTable extends DefaultTableModel {
 
     }
 
+    public void emptyList(){
+        super.setRowCount(0);
+        super.fireTableRowsDeleted(1,super.getRowCount());
+        notificationListDto = new CustomNotificationListDto();
+    }
     public CustomNotificationListDto getNotificationListDto() {
         return notificationListDto;
     }
