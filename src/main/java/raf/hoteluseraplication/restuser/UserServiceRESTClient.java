@@ -174,6 +174,7 @@ public class UserServiceRESTClient {
 
         if (response.code() == 200) {
             System.out.println("Profile has been updated");
+            response.close();
             return;
         }
 

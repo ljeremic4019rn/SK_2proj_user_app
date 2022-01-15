@@ -1,11 +1,13 @@
 package raf.hoteluseraplication.view.userViews;
 
+import raf.hoteluseraplication.HotelUserApplication;
 import raf.hoteluseraplication.restuser.UserServiceRESTClient;
 import raf.hoteluseraplication.restuser.dto.ClientUpdateDto;
 import raf.hoteluseraplication.restuser.dto.ManagerUpdateDto;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class ClientUpdateView extends JDialog{
 
@@ -89,6 +91,11 @@ public class ClientUpdateView extends JDialog{
             clientUpdateDto.setPhoneNumber(Long.valueOf(phoneNumberField.getText()));
             clientUpdateDto.setUsername(usernameField.getText());
             clientUpdateDto.setPassportNumber(passportField.getText());
+            try {
+                userServiceRESTClient.updateClientProfile(HotelUserApplication.getInstance().getUserInfoHolder().getId(),clientUpdateDto);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
 
